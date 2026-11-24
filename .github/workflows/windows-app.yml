@@ -1,0 +1,102 @@
+name: windows app
+
+# Builds the Windows desktop app (packaging/windows) with the weights of the release named in packaging/weights.json
+# (only the assets the manifest lists are downloaded):
+#   push to main that touches the app      -> build + self-test, zip kept as a workflow artifact
+#   tag v* (or a manual run on a tag ref)  -> the same, and the zip is uploaded to the release of that tag, which is
+#                                             created (with generated notes) when it does not exist yet; for v1.0.0
+#                                             that is also the weights release
+#   manual run on a branch                 -> build + self-test, artifact only
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+    paths:
+      - "src/**"
+      - "packaging/**"
+      - "configs/models.yaml"
+      - "assets/**"
+      - "pyproject.toml"
+      - "constraints.txt"
+      - ".github/workflows/windows-app.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: windows-app-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ZIP: MammographyPositioning-windows-x64.zip
+  YOLO_OFFLINE: "true"        # PyInstaller imports ultralytics while analysing it: no update checks
+  YOLO_AUTOINSTALL: "false"   # ... and no pip installs of optional tracker packages into the build
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        # `segformer` extra: the bundle serves SegFormer-B3, so transformers goes in
+        # (packaging/windows/positioning.spec names its lazily imported SegFormer modules).
+        run: |
+          python -m pip install --upgrade pip
+          pip install -c constraints.txt ".[app,models,segformer,dicom]" "pyinstaller>=6.6,<7" "pywebview>=5.3,<6"
+
+      - name: Weights (release named in packaging/weights.json, checked against its SHA-256)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          manifest=packaging/weights.json
+          # (tr: Windows Python ends its lines with CR LF)
+          release=$(python -c "import json; print(json.load(open('$manifest'))['release'])" | tr -d '\r')
+          repo=$(python -c "import json; print(json.load(open('$manifest'))['repository'])" | tr -d '\r')
+          # one --pattern per manifest asset: never the app zip or any other asset of the release
+          mapfile -t patterns < <(python -c "import json; [print('--pattern=' + f['asset']) for f in json.load(open('$manifest'))['files']]" | tr -d '\r')
+          gh release download "$release" --repo "$repo" --dir build/weights-release --clobber "${patterns[@]}"
+          python packaging/weights.py build/desktop/weights --from build/weights-release
+
+      - name: Build
+        run: python -m PyInstaller packaging/windows/positioning.spec --distpath dist --workpath build/pyinstaller --noconfirm
+
+      - name: Self-test of the built app
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath dist\MammographyPositioning\MammographyPositioning.exe `
+                -ArgumentList "--self-test", "--timeout", "900" -Wait -PassThru
+          Get-Content "$env:LOCALAPPDATA\MammographyPositioning\logs\app.log" -Tail 40
+          if ($p.ExitCode -ne 0) { throw "self-test failed with exit code $($p.ExitCode)" }
+
+      - name: Zip
+        shell: bash
+        run: |
+          cd dist && 7z a -tzip -mx=5 "../$ZIP" MammographyPositioning > /dev/null
+          ls -l "../$ZIP"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MammographyPositioning-windows-x64
+          path: ${{ env.ZIP }}
+          retention-days: 14
+
+      - name: Upload to the release of the tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="$GITHUB_REF_NAME"
+          if ! gh release view "$tag" > /dev/null 2>&1; then
+            gh release create "$tag" --verify-tag --title "$tag" --generate-notes
+          fi
+          gh release upload "$tag" "$ZIP" --clobber

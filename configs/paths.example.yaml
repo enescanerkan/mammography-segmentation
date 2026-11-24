@@ -1,0 +1,20 @@
+# Local paths: copy to configs/paths.yaml (git-ignored) and edit. Every committed config refers to these entries
+# as ${name}. Relative values are resolved against `root`; `root` itself is relative to this file.
+# Point another file at the tools with the BREAST_SEG_PATHS environment variable.
+root: ..                                  # repository root
+
+data_root: data                           # `breast-seg build-dataset` writes <data_root>/vindr
+runs_dir: runs                            # training runs (<runs_dir>/<config name>)
+weights_dir: weights                      # base weights (yolo26m-seg.pt ...) and exported models
+predictions_dir: outputs/predictions      # label maps written by predict / cross-validation
+results_dir: outputs/results              # evaluation tables
+nnunet_raw: data/vindr/nnunet/raw         # `breast-seg build-dataset` writes Dataset601_BreastSeg here (and its splits
+                                          # to nnunet_preprocessed), where the nnU-Net trainer reads it
+nnunet_preprocessed: data/vindr/nnunet/preprocessed   # put it on a fast local disk: nnU-Net reads it every iteration
+nnunet_results: runs/nnunet
+
+extra:
+  # radiologist landmarks of the VinDr-Mammo pairs, the reference of every positioning measurement:
+  # data/labels/{mlo,cc}_labels.csv of https://github.com/enescanerkan/mammography-positioning-yolo
+  mlo_landmarks: data/landmarks/mlo_labels.csv
+  cc_landmarks: data/landmarks/cc_labels.csv

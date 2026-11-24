@@ -1,0 +1,6 @@
+# Plain U-Net; patience 300 = no early stopping. Prediction with horizontal-flip TTA.
+base: _cv10_base.yaml
+name: cv10_unet
+train_config: ../train/unet.yaml
+overrides:
+  optim.patience: 300

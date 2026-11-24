@@ -1,0 +1,26 @@
+# 10-fold cross-validation on the VinDr-Mammo cohort with the folds of the released labels (the `Fold` column,
+# written to folds.csv by `breast-seg build-dataset`): study-level, so both breasts of a study share a fold, and
+# every model is compared case by case on the same folds.
+#   fold i: test = fold i, validation = fold (i + 1) % 10, train = the other eight folds.
+n_folds: 10
+val_offset: 1
+folds:
+  csv: ${data_root}/vindr/folds.csv
+  format: images
+  stem_column: stem
+  fold_column: fold
+  group_column: study
+data:
+  yolo_dir: ${data_root}/vindr/yolo
+  semantic_dir: ${data_root}/vindr/semantic
+work_dir: ${runs_dir}/cv
+predictions_dir: ${predictions_dir}
+results_dir: ${results_dir}
+skip_finished: true
+evaluation:
+  mlo_labels: ${mlo_landmarks}
+  cc_labels: ${cc_landmarks}
+  mlo_metadata: ${data_root}/vindr/metadata_mlo.csv
+  cc_metadata: ${data_root}/vindr/metadata_cc.csv
+  masks_dir: ${data_root}/vindr/semantic
+  pairs: labels

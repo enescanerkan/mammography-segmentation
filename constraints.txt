@@ -1,0 +1,26 @@
+# Library versions the measurements were validated with (preprocessing byte-identical to the reference pipeline,
+# app = engine parity on real studies). OpenCV, NumPy and Ultralytics releases change the NLM / CLAHE output and the
+# model post-processing enough to move ΔD by a few tenths of a millimetre, so the Docker image and the desktop
+# build install with   pip install -c constraints.txt ...
+torch==2.4.1
+torchvision==0.19.1
+ultralytics==8.4.50
+opencv-python==4.10.0.84
+opencv-python-headless==4.10.0.84
+numpy==1.24.4
+PyWavelets==1.4.1
+pydicom==2.4.4
+Pillow==10.2.0
+scipy==1.10.1
+pandas==2.0.3
+matplotlib==3.7.5
+pylibjpeg==2.0.1
+pylibjpeg-libjpeg==2.2.0
+pylibjpeg-openjpeg==2.3.0
+# the `segformer` extra: the SegFormer-B3 adapter was checked against the study's stored predictions with these
+# (the study saved its checkpoints with transformers 5; inference/semantic.py maps the decode head's names)
+transformers==4.46.3
+timm==1.0.11
+safetensors==0.5.3
+tokenizers==0.20.3
+huggingface-hub==0.36.2

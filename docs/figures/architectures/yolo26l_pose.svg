@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="600" viewBox="0 0 1360 600" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="Landmark models · YOLO26l-pose (MLO and CC)">
+<title>Landmark models · YOLO26l-pose (MLO and CC)</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0.5 L10,5 L0,9.5 z" fill="#6B7686"/></marker></defs>
+<rect width="1360" height="600" rx="12" fill="#FFFFFF"/>
+<text x="24.0" y="38.0" font-size="20" text-anchor="start" fill="#0F172A" font-weight="600">Landmark models · YOLO26l-pose (MLO and CC)</text>
+<text x="24.0" y="62.0" font-size="13.5" text-anchor="start" fill="#64748B">3 × 640 × 640 wavelet canvas  →  breast box + keypoints · 27.9 M parameters</text>
+<rect x="174.0" y="84.0" width="282.0" height="494.0" rx="14" fill="#F5F8FF" stroke="#DCE5FB"/>
+<rect x="190.0" y="99.0" width="4" height="16" rx="2" fill="#4A6FD8"/>
+<text x="202.0" y="112.0" font-size="14" text-anchor="start" fill="#2F4FB0" font-weight="600">Backbone</text>
+<rect x="478.0" y="84.0" width="428.0" height="494.0" rx="14" fill="#F2FAF9" stroke="#D3ECEA"/>
+<rect x="494.0" y="99.0" width="4" height="16" rx="2" fill="#1E9B96"/>
+<text x="506.0" y="112.0" font-size="14" text-anchor="start" fill="#0F7470" font-weight="600">Neck</text>
+<text x="890.0" y="112.0" font-size="12" text-anchor="end" fill="#64748B">FPN top-down · PAN bottom-up</text>
+<rect x="928.0" y="84.0" width="242.0" height="494.0" rx="14" fill="#FFF9F0" stroke="#F4E3C6"/>
+<rect x="944.0" y="99.0" width="4" height="16" rx="2" fill="#D08A1E"/>
+<text x="956.0" y="112.0" font-size="14" text-anchor="start" fill="#965C05" font-weight="600">Head</text>
+<path d="M152.0,184.0 L186.0,184.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M315.0,238.0 L315.0,262.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M315.0,360.0 L315.0,384.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M315.0,468.0 L315.0,492.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M440.0,313.0 L490.0,313.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M440.0,428.0 L490.0,428.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M440.0,529.0 L702.0,529.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M586.0,529.0 L586.0,472.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M586.0,388.0 L586.0,364.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M678.0,428.0 L702.0,428.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M798.0,313.0 L798.0,384.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M798.0,468.0 L798.0,492.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M678.0,313.0 L940.0,313.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M890.0,428.0 L940.0,428.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M890.0,529.0 L940.0,529.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1154.0,313.0 L1188.0,313.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1154.0,428.0 L1188.0,428.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1154.0,529.0 L1188.0,529.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="24.0" y="108.0" width="128.0" height="152.0" rx="8" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.25"/>
+<text x="36.0" y="170.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">Input</text>
+<text x="36.0" y="188.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">3 × 640 × 640</text>
+<text x="36.0" y="205.1" font-size="12" text-anchor="start" fill="#64748B">wavelet canvas</text>
+<rect x="190.0" y="130.0" width="250.0" height="108.0" rx="8" fill="#E6EDFD" stroke="#4A6FD8" stroke-width="1.25"/>
+<text x="202.0" y="178.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">Stem · Conv s2 ×2, C3k2 ×2</text>
+<text x="202.0" y="196.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">256 × 160 × 160</text>
+<rect x="401.0" y="182.6" width="29.0" height="19" rx="9.5" fill="#D3DFFB"/>
+<text x="415.5" y="196.1" font-size="12" text-anchor="middle" fill="#2F4FB0" font-weight="600">/4</text>
+<rect x="190.0" y="266.0" width="250.0" height="94.0" rx="8" fill="#E6EDFD" stroke="#4A6FD8" stroke-width="1.25"/>
+<text x="202.0" y="307.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">Conv s2 · C3k2 ×2</text>
+<text x="202.0" y="325.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">512 × 80 × 80</text>
+<rect x="371.9" y="311.6" width="58.1" height="19" rx="9.5" fill="#D3DFFB"/>
+<text x="401.0" y="325.1" font-size="12" text-anchor="middle" fill="#2F4FB0" font-weight="600">P3 · /8</text>
+<rect x="190.0" y="388.0" width="250.0" height="80.0" rx="8" fill="#E6EDFD" stroke="#4A6FD8" stroke-width="1.25"/>
+<text x="202.0" y="422.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">Conv s2 · C3k2 ×2 (C3k)</text>
+<text x="202.0" y="440.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">512 × 40 × 40</text>
+<rect x="364.3" y="426.6" width="65.7" height="19" rx="9.5" fill="#D3DFFB"/>
+<text x="397.2" y="440.1" font-size="12" text-anchor="middle" fill="#2F4FB0" font-weight="600">P4 · /16</text>
+<rect x="190.0" y="496.0" width="250.0" height="66.0" rx="8" fill="#E6EDFD" stroke="#4A6FD8" stroke-width="1.25"/>
+<text x="202.0" y="515.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">Conv s2 · C3k2 ×2 (C3k)</text>
+<text x="202.0" y="533.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">512 × 20 × 20</text>
+<text x="202.0" y="550.1" font-size="12" text-anchor="start" fill="#64748B">SPPF · C2PSA ×2 (self-attention)</text>
+<rect x="364.3" y="519.6" width="65.7" height="19" rx="9.5" fill="#D3DFFB"/>
+<text x="397.2" y="533.1" font-size="12" text-anchor="middle" fill="#2F4FB0" font-weight="600">P5 · /32</text>
+<rect x="494.0" y="388.0" width="184.0" height="80.0" rx="8" fill="#DDF3F1" stroke="#1E9B96" stroke-width="1.25"/>
+<text x="506.0" y="422.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">concat · C3k2 ×2</text>
+<text x="506.0" y="440.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">512 × 40 × 40</text>
+<rect x="494.0" y="266.0" width="184.0" height="94.0" rx="8" fill="#DDF3F1" stroke="#1E9B96" stroke-width="1.25"/>
+<text x="506.0" y="307.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">concat · C3k2 ×2</text>
+<text x="506.0" y="325.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">256 × 80 × 80</text>
+<rect x="633.2" y="311.6" width="34.8" height="19" rx="9.5" fill="#C4EAE6"/>
+<text x="650.6" y="325.1" font-size="12" text-anchor="middle" fill="#0F7470" font-weight="600">P3′</text>
+<rect x="706.0" y="388.0" width="184.0" height="80.0" rx="8" fill="#DDF3F1" stroke="#1E9B96" stroke-width="1.25"/>
+<text x="718.0" y="422.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">concat · C3k2 ×2</text>
+<text x="718.0" y="440.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">512 × 40 × 40</text>
+<rect x="845.2" y="426.6" width="34.8" height="19" rx="9.5" fill="#C4EAE6"/>
+<text x="862.6" y="440.1" font-size="12" text-anchor="middle" fill="#0F7470" font-weight="600">P4′</text>
+<rect x="706.0" y="496.0" width="184.0" height="66.0" rx="8" fill="#DDF3F1" stroke="#1E9B96" stroke-width="1.25"/>
+<text x="718.0" y="523.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">concat · C3k2 (PSA)</text>
+<text x="718.0" y="541.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">512 × 20 × 20</text>
+<rect x="845.2" y="527.6" width="34.8" height="19" rx="9.5" fill="#C4EAE6"/>
+<text x="862.6" y="541.1" font-size="12" text-anchor="middle" fill="#0F7470" font-weight="600">P5′</text>
+<rect x="944.0" y="266.0" width="210.0" height="94.0" rx="8" fill="#FCEFD9" stroke="#D08A1E" stroke-width="1.25"/>
+<text x="956.0" y="299.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">Pose26 head</text>
+<text x="956.0" y="317.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">80 × 80 cells</text>
+<text x="956.0" y="334.1" font-size="12" text-anchor="start" fill="#64748B">box 4 · score 1 · keypoints K×3</text>
+<rect x="1115.0" y="303.6" width="29.0" height="19" rx="9.5" fill="#F7DEB4"/>
+<text x="1129.5" y="317.1" font-size="12" text-anchor="middle" fill="#965C05" font-weight="600">/8</text>
+<rect x="944.0" y="388.0" width="210.0" height="80.0" rx="8" fill="#FCEFD9" stroke="#D08A1E" stroke-width="1.25"/>
+<text x="956.0" y="414.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">Pose26 head</text>
+<text x="956.0" y="432.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">40 × 40 cells</text>
+<text x="956.0" y="449.1" font-size="12" text-anchor="start" fill="#64748B">box 4 · score 1 · keypoints K×3</text>
+<rect x="1107.4" y="418.6" width="36.6" height="19" rx="9.5" fill="#F7DEB4"/>
+<text x="1125.7" y="432.1" font-size="12" text-anchor="middle" fill="#965C05" font-weight="600">/16</text>
+<rect x="944.0" y="496.0" width="210.0" height="66.0" rx="8" fill="#FCEFD9" stroke="#D08A1E" stroke-width="1.25"/>
+<text x="956.0" y="515.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">Pose26 head</text>
+<text x="956.0" y="533.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">20 × 20 cells</text>
+<text x="956.0" y="550.1" font-size="12" text-anchor="start" fill="#64748B">box 4 · score 1 · keypoints K×3</text>
+<rect x="1107.4" y="519.6" width="36.6" height="19" rx="9.5" fill="#F7DEB4"/>
+<text x="1125.7" y="533.1" font-size="12" text-anchor="middle" fill="#965C05" font-weight="600">/32</text>
+<rect x="1192.0" y="266.0" width="144.0" height="296.0" rx="8" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.25"/>
+<text x="1204.0" y="337.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">Output</text>
+<text x="1204.0" y="355.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">300 × (6 + 3K)</text>
+<text x="1204.0" y="372.1" font-size="12" text-anchor="start" fill="#64748B">top 300 · no NMS</text>
+<text x="1204.0" y="388.1" font-size="12" text-anchor="start" fill="#64748B">best 'Breast' box</text>
+<text x="1204.0" y="410.1" font-size="12" text-anchor="start" fill="#334155" font-weight="600">MLO · K = 3</text>
+<text x="1204.0" y="427.1" font-size="12" text-anchor="start" fill="#64748B">nipple</text>
+<text x="1204.0" y="443.1" font-size="12" text-anchor="start" fill="#64748B">pectoral top</text>
+<text x="1204.0" y="459.1" font-size="12" text-anchor="start" fill="#64748B">pectoral bottom</text>
+<text x="1204.0" y="481.1" font-size="12" text-anchor="start" fill="#334155" font-weight="600">CC · K = 1</text>
+<text x="1204.0" y="498.1" font-size="12" text-anchor="start" fill="#64748B">nipple</text>
+<text x="594.0" y="502.5" font-size="12" text-anchor="start" fill="#64748B">upsample ×2</text>
+<circle cx="586.0" cy="529.0" r="3.5" fill="#6B7686"/>
+<text x="594.0" y="378.0" font-size="12" text-anchor="start" fill="#64748B">upsample ×2</text>
+<text x="806.0" y="354.5" font-size="12" text-anchor="start" fill="#64748B">conv s2</text>
+<circle cx="798.0" cy="313.0" r="3.5" fill="#6B7686"/>
+<text x="806.0" y="486.0" font-size="12" text-anchor="start" fill="#64748B">conv s2</text>
+</svg>

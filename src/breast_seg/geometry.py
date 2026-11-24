@@ -1,0 +1,465 @@
+"""Pure geometric computations for mammography analysis.
+
+This module has NO side effects — no file I/O, no drawing.
+It operates solely on numpy arrays and returns data structures.
+
+It is the single source of truth for positioning geometry: the mask route (pectoral line fitted to the
+segmentation, nipple centroid, CC depth) and the landmark route (perpendicular distance to the line through two
+pose keypoints, nipple-to-chest-wall distance in the padded model frame) both live here.
+"""
+
+from dataclasses import dataclass
+from typing import Any, Callable, List, Optional, Tuple, Union
+
+import cv2
+import numpy as np
+
+
+@dataclass(frozen=True)
+class PectoralLine:
+    """A fitted straight line along the pectoral muscle boundary edge.
+
+    The line runs from the top to the bottom of the pectoral muscle,
+    tracing its boundary with the breast tissue.
+    """
+    point_a: Tuple[int, int]  # (x, y) top
+    point_b: Tuple[int, int]  # (x, y) bottom
+    slope: float
+    intercept: float
+    boundary_points: Tuple[Tuple[int, int], ...] = ()
+
+    @property
+    def direction(self) -> np.ndarray:
+        """Unit direction vector from point_a to point_b."""
+        d = np.array(self.point_b, dtype=float) - np.array(self.point_a, dtype=float)
+        norm = np.linalg.norm(d)
+        return d / norm if norm > 0 else d
+
+
+@dataclass(frozen=True)
+class PNLResult:
+    """Result of the Posterior Nipple Line (MLO: perpendicular to pectoral line).
+
+    Attributes:
+        nipple_center: (x, y) centroid of the nipple mask.
+        foot_point: (x, y) perpendicular foot on the pectoral line.
+        distance_px: PNL length in pixels.
+    """
+    nipple_center: Tuple[int, int]
+    foot_point: Tuple[int, int]
+    distance_px: float
+
+
+@dataclass(frozen=True)
+class CCDepthResult:
+    """Result of the CC Depth measurement (nipple to breast edge).
+
+    For CC views: horizontal line from nipple centroid to the farthest
+    edge of the breast tissue.
+
+    Attributes:
+        nipple_center: (x, y) centroid of the nipple mask.
+        edge_point: (x, y) farthest breast tissue edge point.
+        distance_px: CC depth in pixels.
+        breast_side: 'right' or 'left' indicating which side the breast is on.
+    """
+    nipple_center: Tuple[int, int]
+    edge_point: Tuple[int, int]
+    distance_px: float
+    breast_side: str
+
+
+# ── Boundary Edge Detection ───────────────────────────────
+
+
+def _find_boundary_edge_points(
+    pectoral_mask: np.ndarray,
+    breast_mask: np.ndarray,
+) -> Tuple[List[Tuple[int, int]], bool]:
+    """Find the pectoral muscle edge points closest to breast tissue for every row.
+    Returns the points and a boolean indicating if breast is on the right.
+    """
+    pec_bin = (pectoral_mask > 0).astype(np.uint8)
+    brs_bin = (breast_mask > 0).astype(np.uint8)
+
+    rows_with_pec = np.where(pec_bin.any(axis=1))[0]
+    if len(rows_with_pec) < 2:
+        return [], True
+
+    top_row = rows_with_pec[0]
+    bot_row = rows_with_pec[-1]
+
+    pec_coords = np.argwhere(pec_bin > 0)
+    brs_coords = np.argwhere(brs_bin > 0)
+    if len(pec_coords) == 0 or len(brs_coords) == 0:
+        return [], True
+
+    pec_cx = pec_coords[:, 1].mean()
+    brs_cx = brs_coords[:, 1].mean()
+    breast_is_right = brs_cx > pec_cx
+
+    edge_points = []
+    for row in range(top_row, bot_row + 1):
+        cols_with_pec = np.where(pec_bin[row, :])[0]
+        if len(cols_with_pec) == 0:
+            continue
+        if breast_is_right:
+            edge_col = cols_with_pec.max()
+        else:
+            edge_col = cols_with_pec.min()
+        edge_points.append((int(edge_col), int(row)))
+
+    return edge_points, breast_is_right
+
+
+def fit_pectoral_line(
+    pectoral_mask: np.ndarray,
+    breast_mask: np.ndarray,
+    image_shape: Tuple[int, int],
+) -> Optional[PectoralLine]:
+    """Fit the pectoral line to the boundary between the pectoral muscle and the breast tissue.
+
+    The boundary is traced row by row and three points are taken from it: the top point (first row), the bottom
+    anchor (last row, the lower end of the muscle) and the bulge apex (the outermost boundary point in the middle
+    10% of the muscle height). The line runs through the bottom anchor and the bulge apex and is extended to the
+    row of the top point.
+    """
+    if pectoral_mask is None or breast_mask is None:
+        return None
+
+    edge_points, breast_is_right = _find_boundary_edge_points(pectoral_mask, breast_mask)
+    if len(edge_points) < 2:
+        return None
+
+    # Ensure points are ordered top to bottom by y-coordinate
+    edge_points.sort(key=lambda p: p[1])
+
+    # Point A: Absolute topmost pixel of the pectoral muscle edge
+    pt_top = edge_points[0]
+    # Point B: Absolute bottommost pixel of the pectoral muscle edge
+    pt_bot = edge_points[-1]
+
+    # Bulge apex: the outermost boundary point in the middle 10% of the muscle height.
+    pectoral_height = pt_bot[1] - pt_top[1]
+    mid_y = (pt_top[1] + pt_bot[1]) / 2.0
+    threshold = pectoral_height * 0.05  # Middle 10% bounds: +/- 5%
+
+    middle_points = [p for p in edge_points if abs(p[1] - mid_y) <= threshold]
+
+    # Fallback to all points if the muscle is extremely short/small
+    if not middle_points:
+        middle_points = edge_points
+
+    if breast_is_right:
+        pt_max = max(middle_points, key=lambda p: p[0])
+    else:
+        pt_max = min(middle_points, key=lambda p: p[0])
+
+    h, w = image_shape
+
+    # The line runs through the bottom anchor (lower end of the muscle) and the bulge apex, tangent to the
+    # bulge; its top point is where it reaches the row of the topmost pectoral pixel.
+    y_top_clamped = pt_top[1]
+    y_bot_clamped = pt_bot[1]
+    x_bot_clamped = pt_bot[0]  # bottom anchor
+
+    dy_line = pt_bot[1] - pt_max[1]  # bottom is below the middle band -> > 0
+    if abs(dy_line) < 1e-6:
+        # Degenerate (muscle has ~no vertical extent below the middle): keep
+        # the raw top edge.
+        x_top_clamped = pt_top[0]
+    else:
+        slope_xy = (pt_bot[0] - pt_max[0]) / dy_line  # x = f(y) along the line
+        x_top_clamped = int(round(pt_max[0] + slope_xy * (pt_top[1] - pt_max[1])))
+
+    x_top_clamped = max(0, min(w - 1, x_top_clamped))
+    x_bot_clamped = max(0, min(w - 1, x_bot_clamped))
+
+    final_dx = x_bot_clamped - x_top_clamped
+    if abs(final_dx) < 1e-6:
+        slope = float('inf')
+        intercept = 0.0
+    else:
+        slope = (y_bot_clamped - y_top_clamped) / final_dx
+        intercept = y_top_clamped - slope * x_top_clamped
+
+    return PectoralLine(
+        point_a=(x_top_clamped, y_top_clamped),
+        point_b=(x_bot_clamped, y_bot_clamped),
+        slope=slope,
+        intercept=intercept,
+        boundary_points=(pt_top, pt_bot, pt_max),
+    )
+
+
+# ── PNL: Perpendicular Nipple Line (MLO) ──────────────────
+
+
+def compute_nipple_centroid(nipple_mask: np.ndarray) -> Optional[Tuple[int, int]]:
+    """Compute the centroid of the nipple segmentation mask.
+
+    Returns:
+        (x, y) centroid or None if mask is empty.
+    """
+    if nipple_mask is None:
+        return None
+
+    moments = cv2.moments((nipple_mask > 0).astype(np.uint8))
+    if moments["m00"] == 0:
+        return None
+
+    cx = int(moments["m10"] / moments["m00"])
+    cy = int(moments["m01"] / moments["m00"])
+    return (cx, cy)
+
+
+def line_through(point_a: Tuple[float, float], point_b: Tuple[float, float]) -> PectoralLine:
+    """The pectoral line from ``point_a`` (top) to ``point_b`` (bottom) as :func:`fit_pectoral_line` returns it (slope
+    and intercept of ``y = slope * x + intercept``, infinite for a vertical line): a line a reviewer placed by hand,
+    measured by :func:`compute_pnl` exactly as a fitted one."""
+    (xa, ya), (xb, yb) = (float(v) for v in point_a), (float(v) for v in point_b)
+    if abs(xb - xa) < 1e-6:
+        slope, intercept = float("inf"), 0.0
+    else:
+        slope = (yb - ya) / (xb - xa)
+        intercept = ya - slope * xa
+    return PectoralLine(point_a=(xa, ya), point_b=(xb, yb), slope=slope, intercept=intercept)
+
+
+def compute_pnl(
+    nipple_center: Tuple[int, int],
+    pectoral_line: PectoralLine,
+) -> PNLResult:
+    """Compute the PNL — perpendicular from nipple to the pectoral line SEGMENT.
+
+    The foot point is CLAMPED to the pectoral line segment [point_a, point_b],
+    so it never extends beyond the actual pectoral muscle boundary.
+
+    Args:
+        nipple_center: (x, y) centroid of the nipple.
+        pectoral_line: The fitted pectoral boundary line.
+
+    Returns:
+        PNLResult with foot point and perpendicular distance.
+    """
+    P = np.array(nipple_center, dtype=float)
+    A = np.array(pectoral_line.point_a, dtype=float)
+    B = np.array(pectoral_line.point_b, dtype=float)
+
+    AB = B - A
+    AP = P - A
+
+    ab_dot = np.dot(AB, AB)
+    if ab_dot < 1e-10:
+        return PNLResult(
+            nipple_center=nipple_center,
+            foot_point=pectoral_line.point_a,
+            distance_px=float(np.linalg.norm(P - A)),
+        )
+
+    t = np.dot(AP, AB) / ab_dot
+
+    # CLAMP t to [0, 1] so the foot stays ON the pectoral line segment
+    t = max(0.0, min(1.0, t))
+
+    foot = A + t * AB
+    distance = np.linalg.norm(P - foot)
+
+    return PNLResult(
+        nipple_center=nipple_center,
+        foot_point=(int(round(foot[0])), int(round(foot[1]))),
+        distance_px=float(distance),
+    )
+
+
+# ── CC Depth: Nipple to Breast Edge (CC view) ─────────────
+
+
+def compute_cc_depth(
+    nipple_center: Tuple[int, int],
+    breast_mask: np.ndarray,
+    image_shape: Tuple[int, int],
+) -> Optional[CCDepthResult]:
+    """Compute CC Depth — horizontal distance from nipple to breast tissue edge.
+
+    For CC views (no pectoral muscle), draws a horizontal line from
+    the nipple centroid to the farthest edge of the breast tissue.
+
+    Algorithm:
+        1. Determine which side the breast is on (left/right) based on
+           breast tissue centroid relative to image center.
+        2. In the nipple's row, find the farthest breast tissue pixel
+           on that side.
+        3. Draw a horizontal line from nipple to that edge.
+
+    Args:
+        nipple_center: (x, y) centroid of the nipple.
+        breast_mask:   Binary mask (H, W) of the breast tissue.
+        image_shape:   (height, width) of the original image.
+
+    Returns:
+        CCDepthResult or None if breast mask is empty.
+    """
+    if breast_mask is None:
+        return None
+
+    brs_bin = (breast_mask > 0).astype(np.uint8)
+    h, w = image_shape
+    nx, ny = nipple_center
+
+    # Determine breast side from breast tissue centroid
+    brs_coords = np.argwhere(brs_bin > 0)  # (row, col)
+    if len(brs_coords) == 0:
+        return None
+
+    breast_cx = brs_coords[:, 1].mean()
+    image_cx = w / 2.0
+    breast_side = "right" if breast_cx > image_cx else "left"
+
+    # Search for the farthest breast edge in the nipple's row
+    # Use a band of rows around nipple for robustness
+    row_band = 10
+    row_start = max(0, ny - row_band)
+    row_end = min(h, ny + row_band + 1)
+    band = brs_bin[row_start:row_end, :]
+
+    cols_with_breast = np.where(band.any(axis=0))[0]
+    if len(cols_with_breast) == 0:
+        return None
+
+    if breast_side == "right":
+        # Breast is on right → edge is the rightmost breast pixel
+        edge_col = int(cols_with_breast.max())
+    else:
+        # Breast is on left → edge is the leftmost breast pixel
+        edge_col = int(cols_with_breast.min())
+
+    edge_point = (edge_col, ny)  # Horizontal line → same y as nipple
+    distance = abs(edge_col - nx)
+
+    return CCDepthResult(
+        nipple_center=nipple_center,
+        edge_point=edge_point,
+        distance_px=float(distance),
+        breast_side=breast_side,
+    )
+
+
+# ── Landmark route: pose keypoints in the padded model frame ──
+
+
+def perpendicular_distance(
+    p1: np.ndarray,
+    p2: np.ndarray,
+    point: np.ndarray,
+) -> Tuple[float, np.ndarray]:
+    """Distance from ``point`` to the infinite line through ``p1``-``p2``, plus the foot of the perpendicular.
+
+    This is the landmark-route PNL: the pose model places ``pectoral_top`` and ``pectoral_bottom`` and the
+    nipple, and the PNL is the perpendicular from the nipple to the line through the two pectoral points. Unlike
+    :func:`compute_pnl` the foot is not clamped to the segment (the keypoints do not span the whole muscle).
+
+    Args:
+        p1: (x, y) first point on the line.
+        p2: (x, y) second point on the line.
+        point: (x, y) the point to measure from.
+
+    Returns:
+        (distance, foot) with ``foot`` as a float64 (x, y) array. A degenerate line (``p1 == p2``) returns the
+        distance to ``p1`` and ``p1`` itself.
+    """
+    line = np.asarray(p2, float) - np.asarray(p1, float)
+    vec = np.asarray(point, float) - np.asarray(p1, float)
+    length = np.linalg.norm(line)
+    if length == 0:
+        return float(np.linalg.norm(vec)), np.asarray(p1, float)
+    unit = line / length
+    projection = np.dot(vec, unit) * unit
+    return float(np.linalg.norm(vec - projection)), np.asarray(p1, float) + projection
+
+
+def cc_chestwall_distance(
+    nipple: np.ndarray,
+    chest_side: str,
+    frame_size: int = 640,
+) -> Tuple[float, np.ndarray]:
+    """Nipple-to-chest-wall distance on a CC view, in the padded ``frame_size`` square model frame.
+
+    The preprocessing pads the crop away from the chest wall, so the chest wall is the image edge on
+    ``chest_side`` ('L' = left edge of the pixel data, anything else = right edge). ``chest_side`` is the side of
+    the *pixel data* (see :func:`breast_seg.imaging.chest_wall_side`), not ImageLaterality.
+
+    Returns:
+        (distance, edge_point) where ``edge_point`` is the (x, y) point on the chest-wall edge in the nipple's row.
+    """
+    if chest_side == "L":
+        return float(nipple[0]), np.array([0.0, nipple[1]])
+    return float(frame_size - nipple[0]), np.array([float(frame_size), nipple[1]])
+
+
+# ── Fallback point: the breast contour where no nipple was found ──
+
+
+def tissue_contour(tissue: np.ndarray, min_px: int = 200) -> Optional[np.ndarray]:
+    """Largest external contour of the breast-tissue mask as ``(N, 2)`` float canvas points; ``None`` if the mask
+    has fewer than ``min_px`` pixels."""
+    if np.asarray(tissue).sum() < min_px:
+        return None
+    contours, _ = cv2.findContours(np.asarray(tissue).astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    if not contours:
+        return None
+    return max(contours, key=cv2.contourArea).reshape(-1, 2).astype(float)
+
+
+def line_distances(points: np.ndarray, p1: np.ndarray, p2: np.ndarray) -> np.ndarray:
+    """Distance of every ``(N, 2)`` point to the infinite line through ``p1``-``p2``: :func:`perpendicular_distance`
+    for many points at once. A degenerate line (``p1 == p2``) gives the distances to ``p1``."""
+    points = np.asarray(points, float).reshape(-1, 2)
+    a, b = np.asarray(p1, float), np.asarray(p2, float)
+    d = b - a
+    length = float(np.hypot(d[0], d[1]))
+    if length == 0:
+        return np.hypot(points[:, 0] - a[0], points[:, 1] - a[1])
+    return np.abs(d[0] * (points[:, 1] - a[1]) - d[1] * (points[:, 0] - a[0])) / length
+
+
+def chest_wall_distances(points: np.ndarray, chest_side: str, frame_size: int = 640) -> np.ndarray:
+    """Distance of every ``(N, 2)`` point to the chest-wall edge of a CC frame: :func:`cc_chestwall_distance` for
+    many points at once."""
+    x = np.asarray(points, float).reshape(-1, 2)[:, 0]
+    return x if chest_side == "L" else frame_size - x
+
+
+def farthest_point(points: Optional[np.ndarray], measure: Union[np.ndarray, Callable[[np.ndarray], float]],
+                   within_px: float = 0.0) -> Optional[np.ndarray]:
+    """The point of ``points`` that reaches farthest by ``measure``.
+
+    ``measure`` is either the distances themselves, one per point (from :func:`line_distances` or
+    :func:`chest_wall_distances`), or a function of one point (the evaluation measures each point in original
+    pixels). With ``within_px`` 0 the first point of the largest distance is returned (the rule the contour estimate
+    was evaluated with); with more, the mean of every point within ``within_px`` of the largest distance (the middle
+    of a flat stretch, as the brightened re-search centres its window).
+    """
+    if points is None or len(points) == 0:
+        return None
+    points = np.asarray(points, float)
+    distances = np.asarray([measure(p) for p in points] if callable(measure) else measure, float)
+    if within_px > 0:
+        return points[distances >= distances.max() - within_px].mean(axis=0)
+    return points[int(np.argmax(distances))]
+
+
+def anterior_point(tissue: np.ndarray, chest_side: str, line: Any = None, frame_size: int = 640, min_px: int = 200,
+                   within_px: float = 0.0) -> Optional[np.ndarray]:
+    """The breast-tissue contour point that reaches farthest: from the infinite line through ``line.point_a`` and
+    ``line.point_b`` (an MLO's fitted pectoral line) when a line is given, else from the chest wall, the frame edge
+    on ``chest_side``. One implementation for the review app's contour estimate (``within_px`` 0) and the brightened
+    re-search's anterior tip (``within_px`` 1); None with less than ``min_px`` pixels of tissue."""
+    contour = tissue_contour(tissue, min_px)
+    if contour is None:
+        return None
+    if line is not None:
+        distances = line_distances(contour, line.point_a, line.point_b)
+    else:
+        distances = chest_wall_distances(contour, chest_side, frame_size)
+    return farthest_point(contour, distances, within_px)

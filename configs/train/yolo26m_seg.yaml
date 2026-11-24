@@ -1,0 +1,8 @@
+# YOLO26m-seg: the shared YOLO recipe (300 epochs, patience 50) on the held-out split of the VinDr-Mammo cohort.
+base: _yolo_seg_base.yaml
+name: yolo26m_seg
+description: YOLO26m-seg instance segmentation (pectoral muscle, breast tissue, nipple)
+data:
+  dataset_dir: ${data_root}/vindr/yolo
+export:
+  filename: yolo26m_seg.pt

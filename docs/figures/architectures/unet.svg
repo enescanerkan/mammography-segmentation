@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="626" viewBox="0 0 1320 626" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="Semantic baseline · U-Net">
+<title>Semantic baseline · U-Net</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0.5 L10,5 L0,9.5 z" fill="#6B7686"/></marker></defs>
+<rect width="1320" height="626" rx="12" fill="#FFFFFF"/>
+<text x="24.0" y="38.0" font-size="20" text-anchor="start" fill="#0F172A" font-weight="600">Semantic baseline · U-Net</text>
+<text x="24.0" y="62.0" font-size="13.5" text-anchor="start" fill="#64748B">1 × 640 × 640 canvas  →  4 × 640 × 640 class logits · 31.0 M parameters</text>
+<rect x="174.0" y="84.0" width="252.0" height="438.0" rx="14" fill="#F5F8FF" stroke="#DCE5FB"/>
+<rect x="190.0" y="99.0" width="4" height="16" rx="2" fill="#4A6FD8"/>
+<text x="202.0" y="112.0" font-size="14" text-anchor="start" fill="#2F4FB0" font-weight="600">Encoder</text>
+<rect x="660.0" y="84.0" width="252.0" height="438.0" rx="14" fill="#F2FAF9" stroke="#D3ECEA"/>
+<rect x="676.0" y="99.0" width="4" height="16" rx="2" fill="#1E9B96"/>
+<text x="688.0" y="112.0" font-size="14" text-anchor="start" fill="#0F7470" font-weight="600">Decoder</text>
+<rect x="438.0" y="496.0" width="210.0" height="108.0" rx="14" fill="#F8F6FE" stroke="#E4DEFA"/>
+<rect x="454.0" y="511.0" width="4" height="16" rx="2" fill="#7B63D6"/>
+<text x="466.0" y="524.0" font-size="14" text-anchor="start" fill="#5B43B5" font-weight="600">Bottleneck</text>
+<rect x="934.0" y="84.0" width="212.0" height="156.0" rx="14" fill="#FFF9F0" stroke="#F4E3C6"/>
+<rect x="950.0" y="99.0" width="4" height="16" rx="2" fill="#D08A1E"/>
+<text x="962.0" y="112.0" font-size="14" text-anchor="start" fill="#965C05" font-weight="600">Head</text>
+<path d="M152.0,177.0 L186.0,177.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M300.0,224.0 L300.0,244.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M300.0,330.0 L300.0,350.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M300.0,424.0 L300.0,444.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M786.0,248.0 L786.0,228.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M786.0,354.0 L786.0,334.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M786.0,448.0 L786.0,428.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M300.0,506.0 L300.0,565.0 L450.0,565.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M632.0,565.0 L786.0,565.0 L786.0,510.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M410.0,177.0 L672.0,177.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M410.0,289.0 L672.0,289.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M410.0,389.0 L672.0,389.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M410.0,477.0 L672.0,477.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<path d="M896.0,177.0 L946.0,177.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1130.0,177.0 L1164.0,177.0" fill="none" stroke="#6B7686" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="24.0" y="130.0" width="128.0" height="94.0" rx="8" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.25"/>
+<text x="36.0" y="163.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">Input</text>
+<text x="36.0" y="181.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">1 × 640 × 640</text>
+<text x="36.0" y="198.1" font-size="12" text-anchor="start" fill="#64748B">grey, 0–1</text>
+<rect x="190.0" y="130.0" width="220.0" height="94.0" rx="8" fill="#E6EDFD" stroke="#4A6FD8" stroke-width="1.25"/>
+<text x="202.0" y="171.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">DoubleConv</text>
+<text x="202.0" y="189.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">64 × 640 × 640</text>
+<rect x="676.0" y="130.0" width="220.0" height="94.0" rx="8" fill="#DDF3F1" stroke="#1E9B96" stroke-width="1.25"/>
+<text x="688.0" y="171.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">DoubleConv</text>
+<text x="688.0" y="189.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">64 × 640 × 640</text>
+<rect x="190.0" y="248.0" width="220.0" height="82.0" rx="8" fill="#E6EDFD" stroke="#4A6FD8" stroke-width="1.25"/>
+<text x="202.0" y="283.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">DoubleConv</text>
+<text x="202.0" y="301.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">128 × 320 × 320</text>
+<rect x="371.0" y="287.6" width="29.0" height="19" rx="9.5" fill="#D3DFFB"/>
+<text x="385.5" y="301.1" font-size="12" text-anchor="middle" fill="#2F4FB0" font-weight="600">/2</text>
+<rect x="676.0" y="248.0" width="220.0" height="82.0" rx="8" fill="#DDF3F1" stroke="#1E9B96" stroke-width="1.25"/>
+<text x="688.0" y="283.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">DoubleConv</text>
+<text x="688.0" y="301.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">128 × 320 × 320</text>
+<rect x="857.0" y="287.6" width="29.0" height="19" rx="9.5" fill="#C4EAE6"/>
+<text x="871.5" y="301.1" font-size="12" text-anchor="middle" fill="#0F7470" font-weight="600">/2</text>
+<rect x="190.0" y="354.0" width="220.0" height="70.0" rx="8" fill="#E6EDFD" stroke="#4A6FD8" stroke-width="1.25"/>
+<text x="202.0" y="383.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">DoubleConv</text>
+<text x="202.0" y="401.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">256 × 160 × 160</text>
+<rect x="371.0" y="387.6" width="29.0" height="19" rx="9.5" fill="#D3DFFB"/>
+<text x="385.5" y="401.1" font-size="12" text-anchor="middle" fill="#2F4FB0" font-weight="600">/4</text>
+<rect x="676.0" y="354.0" width="220.0" height="70.0" rx="8" fill="#DDF3F1" stroke="#1E9B96" stroke-width="1.25"/>
+<text x="688.0" y="383.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">DoubleConv</text>
+<text x="688.0" y="401.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">256 × 160 × 160</text>
+<rect x="857.0" y="387.6" width="29.0" height="19" rx="9.5" fill="#C4EAE6"/>
+<text x="871.5" y="401.1" font-size="12" text-anchor="middle" fill="#0F7470" font-weight="600">/4</text>
+<rect x="190.0" y="448.0" width="220.0" height="58.0" rx="8" fill="#E6EDFD" stroke="#4A6FD8" stroke-width="1.25"/>
+<text x="202.0" y="471.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">DoubleConv</text>
+<text x="202.0" y="489.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">512 × 80 × 80</text>
+<rect x="371.0" y="475.6" width="29.0" height="19" rx="9.5" fill="#D3DFFB"/>
+<text x="385.5" y="489.1" font-size="12" text-anchor="middle" fill="#2F4FB0" font-weight="600">/8</text>
+<rect x="676.0" y="448.0" width="220.0" height="58.0" rx="8" fill="#DDF3F1" stroke="#1E9B96" stroke-width="1.25"/>
+<text x="688.0" y="471.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">DoubleConv</text>
+<text x="688.0" y="489.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">512 × 80 × 80</text>
+<rect x="857.0" y="475.6" width="29.0" height="19" rx="9.5" fill="#C4EAE6"/>
+<text x="871.5" y="489.1" font-size="12" text-anchor="middle" fill="#0F7470" font-weight="600">/8</text>
+<rect x="454.0" y="542.0" width="178.0" height="46.0" rx="8" fill="#ECE8FC" stroke="#7B63D6" stroke-width="1.25"/>
+<text x="466.0" y="559.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">DoubleConv</text>
+<text x="466.0" y="577.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">1024 × 40 × 40</text>
+<rect x="585.4" y="563.6" width="36.6" height="19" rx="9.5" fill="#DCD4FA"/>
+<text x="603.7" y="577.1" font-size="12" text-anchor="middle" fill="#5B43B5" font-weight="600">/16</text>
+<rect x="950.0" y="130.0" width="180.0" height="94.0" rx="8" fill="#FCEFD9" stroke="#D08A1E" stroke-width="1.25"/>
+<text x="962.0" y="171.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">1×1 conv</text>
+<text x="962.0" y="189.1" font-size="12" text-anchor="start" fill="#334155" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">4 × 640 × 640</text>
+<rect x="1168.0" y="115.0" width="128.0" height="124.0" rx="8" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.25"/>
+<text x="1180.0" y="139.9" font-size="13" text-anchor="start" fill="#0F172A" font-weight="600">Output</text>
+<text x="1180.0" y="157.1" font-size="12" text-anchor="start" fill="#334155" font-weight="600">4 classes</text>
+<text x="1180.0" y="174.1" font-size="12" text-anchor="start" fill="#64748B">background</text>
+<text x="1180.0" y="190.1" font-size="12" text-anchor="start" fill="#64748B">pectoral</text>
+<text x="1180.0" y="206.1" font-size="12" text-anchor="start" fill="#64748B">breast tissue</text>
+<text x="1180.0" y="222.1" font-size="12" text-anchor="start" fill="#64748B">nipple</text>
+<text x="308.0" y="240.0" font-size="12" text-anchor="start" fill="#64748B">max-pool 2×2</text>
+<text x="308.0" y="346.0" font-size="12" text-anchor="start" fill="#64748B">max-pool 2×2</text>
+<text x="308.0" y="440.0" font-size="12" text-anchor="start" fill="#64748B">max-pool 2×2</text>
+<text x="778.0" y="240.0" font-size="12" text-anchor="end" fill="#64748B">up-conv 2×2</text>
+<text x="778.0" y="346.0" font-size="12" text-anchor="end" fill="#64748B">up-conv 2×2</text>
+<text x="778.0" y="440.0" font-size="12" text-anchor="end" fill="#64748B">up-conv 2×2</text>
+<text x="308.0" y="539.5" font-size="12" text-anchor="start" fill="#64748B">max-pool 2×2</text>
+<text x="778.0" y="539.5" font-size="12" text-anchor="end" fill="#64748B">up-conv 2×2</text>
+<text x="543.0" y="170.0" font-size="12" text-anchor="middle" fill="#64748B">skip · concat</text>
+</svg>

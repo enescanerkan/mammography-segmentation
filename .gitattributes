@@ -1,0 +1,18 @@
+# Text is stored with LF in the repository; Git checks out the platform's native ending when core.autocrlf is set
+# locally.
+* text=auto eol=lf
+
+# Shell scripts must keep LF even on Windows checkouts, otherwise bash fails with "\r: command not found".
+*.sh text eol=lf
+
+# Binary — never diff, never touch line endings.
+*.pt          binary
+*.pth         binary
+*.safetensors binary
+*.onnx        binary
+*.npy         binary
+*.png         binary
+*.jpg         binary
+*.jpeg        binary
+*.dcm         binary
+*.ico         binary

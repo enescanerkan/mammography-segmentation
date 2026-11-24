@@ -1,0 +1,101 @@
+# Model registry — the one place a weight path, its preprocessing recipe and its output type are declared.
+# Everything else reads from here, so adding or swapping a model never means touching inference code.
+#
+# weights:  always RELATIVE to the weights root. The root is, in order of precedence:
+#             1. models.weights_root of the app config / --weights on the command line
+#             2. the BREAST_SEG_WEIGHTS environment variable
+#             3. weights_root below (relative to this file): the git-ignored weights/ folder of the repository
+#           The same folder and sub-paths serve the annotation toolkit (tools/annotation). See docs/APP.md
+#           ("Weights folder").
+#
+# task:     landmark | segmentation
+# view:     MLO | CC | both
+# recipe:   wavelet640   NLM h=8 -> db4 level-2 detail boost 1.3/1.6 -> CLAHE 2.5/8x8, padded to 640
+#           baseline640  the same crop / pad geometry without the enhancement
+#           The two 640 recipes share one coordinate transform, so a point found by one model is directly
+#           comparable with a mask drawn by the other.
+#
+# framework: ultralytics (default) | segformer | unet   — how the checkpoint is run (segmentation may use any;
+#           segformer weights are a save_pretrained folder, unet a .pt checkpoint)
+#
+# The engine fills each role with the FIRST ENABLED entry whose weights are present and load; a later enabled entry
+# stands in for an earlier one that cannot (reported under "skipped" in /api/health): one landmark model per view
+# and one segmentation model. SegFormer-B3 (the proposed model of the paper) is the default segmentation model;
+# YOLO26m-seg (the fastest) stands in while the SegFormer-B3 folder is absent. Every weight file below is in the
+# v1.0.0 release (packaging/weights.json). To serve another model, flip the `enabled` flags.
+
+weights_root: ../weights
+
+models:
+  - id: pose_mlo
+    label: YOLO26-pose · MLO
+    task: landmark
+    view: MLO
+    recipe: wavelet640
+    weights: positioning/yolo26l_pose_mlo.pt
+    keypoints: [nipple, pectoral_top, pectoral_bottom]
+    enabled: true
+
+  - id: pose_cc
+    label: YOLO26-pose · CC
+    task: landmark
+    view: CC
+    recipe: wavelet640
+    weights: positioning/yolo26l_pose_cc.pt
+    keypoints: [nipple]
+    enabled: true
+
+  # SegFormer-B3 trained on the held-out split (the model of the paper's held-out and external tests).
+  # Semantic network: one mask per class from the arg-max map (flip test-time augmentation, as evaluated). A nipple
+  # missing from the arg-max map is located by the paper's rule, with no pose condition: arg-max component of any
+  # size, then nipple probability >= 0.02, then the highest-probability pixel (inference/semantic.py); the
+  # pose-gated nipple_rescue below therefore never runs for it. Needs the `segformer` extra (transformers).
+  - id: seg_segformer_b3
+    label: SegFormer-B3
+    task: segmentation
+    view: both
+    recipe: baseline640
+    framework: segformer
+    weights: segmentation/segformer_b3
+    classes: [pectoral, breast-tissue, nipple]
+    nipple_rescue:
+      enabled: true
+      conf: 0.02
+      max_mm: 15.0
+    enabled: true
+
+  # Plain U-Net trained on the held-out split (same nipple rule as SegFormer-B3); disabled by default.
+  - id: seg_unet
+    label: U-Net
+    task: segmentation
+    view: both
+    recipe: baseline640
+    framework: unet
+    weights: segmentation/unet.pt
+    classes: [pectoral, breast-tissue, nipple]
+    nipple_rescue:
+      enabled: true
+      conf: 0.02
+      max_mm: 15.0
+    enabled: false
+
+  - id: seg_yolo26m
+    label: YOLO26m-seg
+    task: segmentation
+    view: both
+    recipe: baseline640
+    weights: segmentation/yolo26m_seg.pt
+    classes: [pectoral, breast-tissue, nipple]
+    conf: 0.25
+    iou: 0.5
+    # The nipple is the class the segmentation model under-scores: at conf 0.25 it is missed on a noticeable
+    # share of images, yet a second pass at 0.02 usually puts a candidate within a few millimetres of the pose
+    # nipple. The low-confidence candidate is taken only when the independent landmark model vouches for it.
+    # (The review app adds two steps of its own after these, switched in its config, not here: the brightened
+    # re-search and the contour estimate. See the nipple: section of configs/app.example.yaml.)
+    nipple_rescue:
+      enabled: true
+      conf: 0.02
+      max_mm: 15.0
+    enabled: true    # stands in for seg_segformer_b3 when its weights are absent; disable seg_segformer_b3 to
+                     # serve YOLO26m-seg always

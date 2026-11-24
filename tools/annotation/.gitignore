@@ -1,0 +1,24 @@
+# Patterns starting with "/" are relative to tools/annotation/ (qt_app/positioning/data/
+# is source code and must not be caught by a bare "data/").
+
+# Local configuration (copy annotation.example.yaml)
+/annotation.yaml
+
+# Model weights and third-party code (never committed)
+/weights/
+/vendor/
+*.pt
+*.pth
+
+# Runtime output
+/logs/
+/results/
+**/labels/*.txt
+
+# Local data
+/data/
+
+# Python / OS caches
+__pycache__/
+*.pyc
+.DS_Store

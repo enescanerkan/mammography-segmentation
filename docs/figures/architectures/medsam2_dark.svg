@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="797" viewBox="0 0 1400 797" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="Prompted segmentation (annotation toolkit) · MedSAM2 (SAM2 Hiera-tiny)">
+<title>Prompted segmentation (annotation toolkit) · MedSAM2 (SAM2 Hiera-tiny)</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0.5 L10,5 L0,9.5 z" fill="#8591A3"/></marker></defs>
+<rect width="1400" height="797" rx="12" fill="#0D1117"/>
+<text x="24.0" y="38.0" font-size="20" text-anchor="start" fill="#E6EDF3" font-weight="600">Prompted segmentation (annotation toolkit) · MedSAM2 (SAM2 Hiera-tiny)</text>
+<text x="24.0" y="62.0" font-size="13.5" text-anchor="start" fill="#8D99AA">3 × 1024 × 1024 image + box  →  1 × 256 × 256 mask logits · 31.4 M parameters used (38.9 M in the checkpoint)</text>
+<rect x="200.0" y="84.0" width="428.0" height="494.0" rx="14" fill="#0F1626" stroke="#1F2E4D"/>
+<rect x="216.0" y="99.0" width="4" height="16" rx="2" fill="#7393EE"/>
+<text x="228.0" y="112.0" font-size="14" text-anchor="start" fill="#A3B8F6" font-weight="600">Image encoder</text>
+<text x="612.0" y="112.0" font-size="12" text-anchor="end" fill="#8D99AA">Hiera-T 26.8 M · FPN 0.4 M</text>
+<rect x="200.0" y="600.0" width="428.0" height="175.0" rx="14" fill="#14111F" stroke="#2E2650"/>
+<rect x="216.0" y="615.0" width="4" height="16" rx="2" fill="#9F8AEF"/>
+<text x="228.0" y="628.0" font-size="14" text-anchor="start" fill="#BEAEF7" font-weight="600">Prompt encoder</text>
+<text x="612.0" y="628.0" font-size="12" text-anchor="end" fill="#8D99AA">frozen</text>
+<rect x="650.0" y="84.0" width="588.0" height="691.0" rx="14" fill="#0C1A1B" stroke="#1A3A3A"/>
+<rect x="666.0" y="99.0" width="4" height="16" rx="2" fill="#3FBDB6"/>
+<text x="678.0" y="112.0" font-size="14" text-anchor="start" fill="#74D5CF" font-weight="600">Mask decoder</text>
+<text x="1222.0" y="112.0" font-size="12" text-anchor="end" fill="#8D99AA">4.2 M</text>
+<path d="M178.0,184.0 L212.0,184.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M314.0,238.0 L314.0,262.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M314.0,360.0 L314.0,384.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M314.0,468.0 L314.0,492.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M412.0,184.0 L432.0,184.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M412.0,313.0 L432.0,313.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M412.0,428.0 L432.0,428.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M412.0,529.0 L524.0,529.0 L524.0,472.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M178.0,728.0 L212.0,728.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M612.0,184.0 L662.0,184.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M612.0,313.0 L662.0,313.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M612.0,428.0 L718.0,428.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M516.0,669.0 L734.0,669.0 L734.0,444.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M516.0,728.0 L822.0,728.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M746.0,428.0 L822.0,428.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M924.0,697.0 L924.0,472.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M802.0,313.0 L822.0,313.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M802.0,184.0 L822.0,184.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M924.0,388.0 L924.0,364.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M924.0,266.0 L924.0,242.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1022.0,428.0 L1042.0,428.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1022.0,184.0 L1256.0,184.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1222.0,428.0 L1323.0,428.0 L1323.0,242.0" fill="none" stroke="#8591A3" stroke-width="1.5" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="24.0" y="108.0" width="154.0" height="152.0" rx="8" fill="#161B22" stroke="#6E7781" stroke-width="1.25"/>
+<text x="36.0" y="170.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Input image</text>
+<text x="36.0" y="188.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">3 × 1024 × 1024</text>
+<text x="36.0" y="205.1" font-size="12" text-anchor="start" fill="#8D99AA">raw1024</text>
+<rect x="216.0" y="130.0" width="196.0" height="108.0" rx="8" fill="#16264A" stroke="#7393EE" stroke-width="1.25"/>
+<text x="228.0" y="162.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Stage 1 · 1 block</text>
+<text x="228.0" y="180.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">96 × 256 × 256</text>
+<text x="228.0" y="197.1" font-size="12" text-anchor="start" fill="#8D99AA">patch embed 7×7, s4</text>
+<text x="228.0" y="213.1" font-size="12" text-anchor="start" fill="#8D99AA">window 8</text>
+<rect x="373.0" y="166.6" width="29.0" height="19" rx="9.5" fill="#22396B"/>
+<text x="387.5" y="180.1" font-size="12" text-anchor="middle" fill="#A3B8F6" font-weight="600">/4</text>
+<rect x="216.0" y="266.0" width="196.0" height="94.0" rx="8" fill="#16264A" stroke="#7393EE" stroke-width="1.25"/>
+<text x="228.0" y="299.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Stage 2 · 2 blocks</text>
+<text x="228.0" y="317.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">192 × 128 × 128</text>
+<text x="228.0" y="334.1" font-size="12" text-anchor="start" fill="#8D99AA">window 4</text>
+<rect x="373.0" y="303.6" width="29.0" height="19" rx="9.5" fill="#22396B"/>
+<text x="387.5" y="317.1" font-size="12" text-anchor="middle" fill="#A3B8F6" font-weight="600">/8</text>
+<rect x="216.0" y="388.0" width="196.0" height="80.0" rx="8" fill="#16264A" stroke="#7393EE" stroke-width="1.25"/>
+<text x="228.0" y="414.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Stage 3 · 7 blocks</text>
+<text x="228.0" y="432.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">384 × 64 × 64</text>
+<text x="228.0" y="449.1" font-size="12" text-anchor="start" fill="#8D99AA">window 14 · 3 global</text>
+<rect x="365.4" y="418.6" width="36.6" height="19" rx="9.5" fill="#22396B"/>
+<text x="383.7" y="432.1" font-size="12" text-anchor="middle" fill="#A3B8F6" font-weight="600">/16</text>
+<rect x="216.0" y="496.0" width="196.0" height="66.0" rx="8" fill="#16264A" stroke="#7393EE" stroke-width="1.25"/>
+<text x="228.0" y="515.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Stage 4 · 2 blocks</text>
+<text x="228.0" y="533.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">768 × 32 × 32</text>
+<text x="228.0" y="550.1" font-size="12" text-anchor="start" fill="#8D99AA">window 7</text>
+<rect x="365.4" y="519.6" width="36.6" height="19" rx="9.5" fill="#22396B"/>
+<text x="383.7" y="533.1" font-size="12" text-anchor="middle" fill="#A3B8F6" font-weight="600">/32</text>
+<rect x="436.0" y="130.0" width="176.0" height="108.0" rx="8" fill="#16264A" stroke="#7393EE" stroke-width="1.25"/>
+<text x="448.0" y="178.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">1×1 lateral</text>
+<text x="448.0" y="196.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">256 × 256 × 256</text>
+<rect x="436.0" y="266.0" width="176.0" height="94.0" rx="8" fill="#16264A" stroke="#7393EE" stroke-width="1.25"/>
+<text x="448.0" y="307.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">1×1 lateral</text>
+<text x="448.0" y="325.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">256 × 128 × 128</text>
+<rect x="436.0" y="388.0" width="176.0" height="80.0" rx="8" fill="#16264A" stroke="#7393EE" stroke-width="1.25"/>
+<text x="448.0" y="414.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Image embedding</text>
+<text x="448.0" y="432.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">256 × 64 × 64</text>
+<text x="448.0" y="449.1" font-size="12" text-anchor="start" fill="#8D99AA">+ no-memory embedding</text>
+<rect x="24.0" y="692.0" width="154.0" height="72.0" rx="8" fill="#161B22" stroke="#6E7781" stroke-width="1.25"/>
+<text x="36.0" y="714.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Box prompt</text>
+<text x="36.0" y="732.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">(x0, y0, x1, y1)</text>
+<text x="36.0" y="749.1" font-size="12" text-anchor="start" fill="#8D99AA">2 corners, labels 2 / 3</text>
+<rect x="216.0" y="646.0" width="300.0" height="46.0" rx="8" fill="#231C40" stroke="#9F8AEF" stroke-width="1.25"/>
+<text x="228.0" y="663.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Dense prompt + pos. enc.</text>
+<text x="228.0" y="681.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">256 × 64 × 64 each</text>
+<rect x="216.0" y="704.0" width="300.0" height="48.0" rx="8" fill="#231C40" stroke="#9F8AEF" stroke-width="1.25"/>
+<text x="228.0" y="722.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Sparse tokens</text>
+<text x="228.0" y="740.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">3 × 256 (2 corners + pad)</text>
+<rect x="666.0" y="130.0" width="136.0" height="108.0" rx="8" fill="#113233" stroke="#3FBDB6" stroke-width="1.25"/>
+<text x="678.0" y="178.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">High-res s0</text>
+<text x="678.0" y="196.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">32 × 256 × 256</text>
+<rect x="666.0" y="266.0" width="136.0" height="94.0" rx="8" fill="#113233" stroke="#3FBDB6" stroke-width="1.25"/>
+<text x="678.0" y="307.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">High-res s1</text>
+<text x="678.0" y="325.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">64 × 128 × 128</text>
+<circle cx="734.0" cy="428.0" r="12" fill="#113233" stroke="#3FBDB6" stroke-width="1.25"/>
+<text x="734.0" y="433.5" font-size="16" text-anchor="middle" fill="#E6EDF3" font-weight="600">+</text>
+<rect x="826.0" y="130.0" width="196.0" height="108.0" rx="8" fill="#113233" stroke="#3FBDB6" stroke-width="1.25"/>
+<text x="838.0" y="178.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">ConvT ×2 + s0</text>
+<text x="838.0" y="196.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">32 × 256 × 256</text>
+<rect x="983.0" y="182.6" width="29.0" height="19" rx="9.5" fill="#184A47"/>
+<text x="997.5" y="196.1" font-size="12" text-anchor="middle" fill="#74D5CF" font-weight="600">/4</text>
+<rect x="826.0" y="266.0" width="196.0" height="94.0" rx="8" fill="#113233" stroke="#3FBDB6" stroke-width="1.25"/>
+<text x="838.0" y="307.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">ConvT ×2 + s1</text>
+<text x="838.0" y="325.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">64 × 128 × 128</text>
+<rect x="983.0" y="311.6" width="29.0" height="19" rx="9.5" fill="#184A47"/>
+<text x="997.5" y="325.1" font-size="12" text-anchor="middle" fill="#74D5CF" font-weight="600">/8</text>
+<rect x="826.0" y="388.0" width="196.0" height="80.0" rx="8" fill="#113233" stroke="#3FBDB6" stroke-width="1.25"/>
+<text x="838.0" y="415.4" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Two-way transformer ×2</text>
+<text x="838.0" y="432.6" font-size="12" text-anchor="start" fill="#8D99AA">256-d · 8 heads · MLP 2048</text>
+<text x="838.0" y="448.6" font-size="12" text-anchor="start" fill="#8D99AA">tokens ↔ image attention</text>
+<rect x="826.0" y="697.0" width="196.0" height="62.0" rx="8" fill="#113233" stroke="#3FBDB6" stroke-width="1.25"/>
+<text x="838.0" y="715.4" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Output tokens</text>
+<text x="838.0" y="732.6" font-size="12" text-anchor="start" fill="#8D99AA">obj-score · IoU · 4 mask</text>
+<text x="838.0" y="748.6" font-size="12" text-anchor="start" fill="#8D99AA">+ prompt tokens</text>
+<rect x="1046.0" y="388.0" width="176.0" height="80.0" rx="8" fill="#113233" stroke="#3FBDB6" stroke-width="1.25"/>
+<text x="1058.0" y="415.4" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Hypernetwork MLP</text>
+<text x="1058.0" y="432.6" font-size="12" text-anchor="start" fill="#8D99AA">mask token → 32 weights</text>
+<text x="1058.0" y="448.6" font-size="12" text-anchor="start" fill="#8D99AA">IoU + object-score heads</text>
+<rect x="1260.0" y="130.0" width="126.0" height="108.0" rx="8" fill="#161B22" stroke="#6E7781" stroke-width="1.25"/>
+<text x="1272.0" y="170.9" font-size="13" text-anchor="start" fill="#E6EDF3" font-weight="600">Mask logits</text>
+<text x="1272.0" y="188.1" font-size="12" text-anchor="start" fill="#C3CCD8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace">1 × 256 × 256</text>
+<text x="1272.0" y="205.1" font-size="12" text-anchor="start" fill="#8D99AA">single mask</text>
+<text x="322.0" y="256.0" font-size="12" text-anchor="start" fill="#8D99AA">Q-pool ×2</text>
+<text x="322.0" y="378.0" font-size="12" text-anchor="start" fill="#8D99AA">Q-pool ×2</text>
+<text x="322.0" y="486.0" font-size="12" text-anchor="start" fill="#8D99AA">Q-pool ×2</text>
+<text x="532.0" y="502.5" font-size="12" text-anchor="start" fill="#8D99AA">top-down</text>
+</svg>

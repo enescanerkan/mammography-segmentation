@@ -1,0 +1,61 @@
+# --- patient data, datasets, results: never committed -----------------------
+/data/
+/datasets/
+/runs/
+/outputs/
+/results/
+/weights/
+/logs/
+*.dcm
+*.npy
+*.npz
+*.nii
+*.nii.gz
+*.csv
+*.png
+*.jpg
+*.jpeg
+*.pptx
+!docs/figures/*.png
+!docs/figures/paper/*.jpg
+!labels/vindr-mammo/*.csv
+!labels/external/*.csv
+!assets/*.png
+!src/breast_seg/apps/positioning/static/**/*.png
+# public dataset identifiers of the runtime benchmark's pairs (no labels, no paths)
+!configs/benchmark/vindr_heldout_pairs.csv
+
+# --- model weights (distributed separately, see docs/MODELS.md) --------------
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+*.engine
+
+# --- local configuration -----------------------------------------------------
+configs/paths*.yaml
+!configs/paths.example.yaml
+configs/app.yaml
+configs/*.test*.yaml
+
+# --- annotation toolkit runtime ----------------------------------------------
+tools/annotation/logs/
+tools/annotation/vendor/
+tools/annotation/data/
+
+# --- python / editors ---------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+.env
+.vscode/
+.idea/
+*.swp

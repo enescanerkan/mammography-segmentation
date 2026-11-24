@@ -1,0 +1,18 @@
+{
+  "release": "v1.0.0",
+  "repository": "enescanerkan/mammography-segmentation",
+  "files": [
+    {"path": "positioning/yolo26l_pose_mlo.pt", "asset": "yolo26l_pose_mlo.pt", "bytes": 56667109,
+     "sha256": "f3f6f6834d79cb2bce077a2f501c6f71f0858c6c93f02ee53b8b8019d8ec5edc"},
+    {"path": "positioning/yolo26l_pose_cc.pt", "asset": "yolo26l_pose_cc.pt", "bytes": 56669676,
+     "sha256": "7e34ce1e2c46aba5d1e7937d10fff3dcde16a9b276e7e861e33dfded77b9ae6f"},
+    {"path": "segmentation/segformer_b3/config.json", "asset": "segformer_b3-config.json", "bytes": 1142,
+     "sha256": "9de690dd7e465fcc110f36a77f81b252d19e6eaa1f624137f46ce78eaad0c60c"},
+    {"path": "segmentation/segformer_b3/model.safetensors", "asset": "segformer_b3-model.safetensors", "bytes": 188986032,
+     "sha256": "e7b14435dabd6eb4a1b370c8ed24e4b0be263411a245ed175bcab0ecc38d7ae1"},
+    {"path": "segmentation/yolo26m_seg.pt", "asset": "yolo26m_seg.pt", "bytes": 54556463,
+     "sha256": "07f4588bdfd6fad3800ebd928fb3870311e30a70a149e6fb26fe4ab5f006fdef"},
+    {"path": "segmentation/unet.pt", "asset": "unet.pt", "bytes": 124226079,
+     "sha256": "a592666e0f711021ae43c1ccb8711fbe5bc728cee1dce380447e6f3fe3a5f30a"}
+  ]
+}
